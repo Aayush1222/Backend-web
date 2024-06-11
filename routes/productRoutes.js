@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const productControllers = require('../controllers/productControllers')
+const { authGuard } = require('../middleware/authGuard')
 
 // Make a create user API
 router.post('/create',productControllers.createProduct)
@@ -10,10 +11,10 @@ router.post('/create',productControllers.createProduct)
 
 
 
-router.get('/get_all_products',productControllers.getAllProducts)
+router.get('/get_all_products',authGuard, productControllers.getAllProducts)
 // fetch single product
 // If POST, body(data)
-router.get('/get_single_product/:id', productControllers.getProduct)
+router.get('/get_single_product/:id',authGuard, productControllers.getProduct)
 
 // delete Product
 router.delete('/delete_product/:id', productControllers.deleteProduct)
